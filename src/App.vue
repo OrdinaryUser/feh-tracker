@@ -27,6 +27,7 @@
 
   // This line is new!
   import Firebase from 'firebase'
+  import config from '.config.js'
 
   /*
    * The config was copied and pasted straight from the Firebase Dashboard.
