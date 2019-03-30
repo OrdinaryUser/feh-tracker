@@ -1,0 +1,239 @@
+/************************************
+              COLORS
+Dark:       #262423 / rgb(38,36,35)
+Yellow:     #FEF995 / rgb(254,249,149)
+Blue:       #119CB3 / rgb(17,156,179)
+Green:      #359259 / rgb(53,146,89)
+Cream:      #E7DDB3 / rgb(231,221,179)
+Parchment:  #B6946F / rgb(182,148,111)
+*************************************/
+@font-face { 
+    font-family: feh;
+    src: url('../fonts/NintendoP\ Skip\ D\ 003.ttf');
+  }
+  
+  body {
+    margin: 0;
+    height: 100%;
+    color: rgba(255,255,255,0.85);
+    text-shadow:
+      -1px 0 .2em #262423,
+      0 1px .2em #262423,
+      1px 0 .2em #262423,
+      0 -1px .2em #262423;
+  }
+  a {
+    color: rgba(255,255,255,0.95);
+  }
+  
+  .flexwrap {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  * {
+    font-family: feh;
+  }
+  pre {
+      font-family: Courier;
+      width: 100%;
+      color: black;
+      text-shadow: none;
+      white-space: normal;
+  }
+  
+  header {
+    width: 100%;
+    background-color: #B6946F;
+  }
+  
+  a.title {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 72px;
+    margin: 0;
+    padding: .7em;
+    text-decoration: none;
+  }
+  
+  a.title img {
+    height: 100%;
+    margin-right: 20px;
+  }
+  
+  a.title span {
+    line-height: 72px;
+    font-size: 36px;
+  }
+  
+  main {
+    width: 100%;
+    flex: 1;
+    /*background: url('../img/feh-bg15.png') no-repeat center center fixed; */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  nav {
+    width: 250px;
+    display: block;
+    float: left;
+    height: 100%;
+  }
+  
+  nav * {
+    color: lightgray;
+  }
+  
+  .faux-modal {
+    border-right: 10px ridge gray;
+    border-bottom: 10px ridge gray;
+    border-top: 10px groove gray;
+    border-left: 10px groove gray;
+    border-radius: 9px;
+    background-image: url('../img/bg_mosaic.jpg');
+    background-color: #262423;
+    color: lightgray;
+  }
+  
+  .main-modal {
+    padding:10px;
+  }
+  
+  nav ul {
+    margin: 5px;
+    padding: 10px 25px;
+    font-size: 16px;
+  }
+  
+  nav ul li {
+    list-style-type: none;
+    padding: 7px 0;
+  }
+  
+  nav ul li:hover,
+  nav ul li.selected {
+    list-style-image: url('../img/selector.png');
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    display: block;
+  }
+  
+  content {
+    display: block;
+    height: 100%;
+  }
+  
+  content div.container {
+    padding: 5px;
+      margin-left: 250px;
+  }
+  
+  content div.container div.fauxModal {
+    padding: 10px 25px;
+  }
+  
+  content p {
+    margin-top: 0;
+  }
+  
+  content h1.page-title {
+    margin-top: 0;
+  }
+  
+  img.portrait {
+    width:50px;
+    vertical-align:bottom;
+  }
+  img.icon {
+    width:20px;
+    vertical-align:middle;
+  }
+  
+  .form-group {
+    width: 50%;
+    margin-top: .6em;
+  }
+  
+  .form-group label {
+    display: block;
+    padding: 5px 0;
+  }
+  
+  .form-group select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group button[type="submit"] {
+    padding: 3px;
+    background-color: black;
+    color: lightgray;
+    font-size: 1.5em;
+    border: 2px solid lightgray;
+    border-radius: .3em;
+    box-sizing: border-box;
+    line-height: 1.3em;
+  }
+  
+  .form-group label,
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline-style: none;
+  }
+  
+  .form-group button[type="submit"]:hover {
+    background-color: lightgray;
+    color: black;
+    cursor: pointer;
+  }
+  
+  /* DataTables */
+  .dataTables_wrapper,
+  table.dataTable,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_paginate,
+  .dataTables_wrapper:after {
+    display: inline-block;
+  }
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    color: lightgray;
+  }
+  table.dataTable {
+    margin: 10px 0;
+    width: 100% !important;
+  }
+  table.dataTable tbody tr {
+    background-color: transparent;
+  }
+  table.dataTable tbody tr.odd {
+    background-color: rgb(17,156,179,0.65);
+  }
+  table.dataTable tbody tr.even {
+    background-color: rgb(17,156,179,0.5);
+  }
+  table.dataTable tbody td {
+    padding: 0 10px;
+  }
+  table.dataTable tbody td:first-child {
+    text-align: center;
+  }
