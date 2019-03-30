@@ -1,49 +1,23 @@
-<!-- App.vue
-  This component is the root component for our Vue application. It is rendered
-  in the project root's index.html file with the <div id="app"> tag. The Firebase
-  instance exists only within this component.
--->
-
 <template>
   <div id="app">
-    <h1 v-for="hero in heroes">{{ hero.name }}</h1>
+    <div v-for="(hero, idx) in heroes" v-bind:key="idx">
+      <h1>{{ hero.name }}</h1>
+    </div>
   </div>
 </template>
 
 <script>
-  // This line is new!
-  import Firebase from 'firebase'
-  import config from './config.js'
-
-  // Here we are initializing the Firebase connection.
-  let app = Firebase.initializeApp(config)
-  let db = app.database()
-
+  import {db} from './db'
   export default {
     name: 'app',
 
-    /*
-     * This section is added to the original CLI-generated App component. This
-     * is where VueFire comes into play, allowing us to link our Vue app to
-     * Firebase data relatively simply. More information is on the GitHub page:
-     *
-     * https://github.com/vuejs/vuefire/
-     */
-
-    firestore () {
-      return {
-        heroes: db.collection('heroes').orderBy('name')
-      }
-    },
-
     data () {
-      return { heroes: [] }
+      return { heroes: [{name: 'NOT LOADING'}] }
     },
 
-    // We have added a simple method to add new greetings to our Firebase.
-    methods: { },
-
-    components: { }
+    firestore: {
+      heroes: db.collection('heroes')
+    }
   }
 </script>
 
