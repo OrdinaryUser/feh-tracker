@@ -1,11 +1,38 @@
 <template>
   <div id="app">
+   <div class="flexwrap">
+      <header>
+        <a class="title" href="">
+          <img src="src/img/feh-logo.png" class="logo" />
+          <span>FEH Tracker</span>
+        </a>
+      </header>
+      <main>
+        <nav>
+          <ul class="faux-modal">
+            <li><a href="index.php?page=myUnits">My Units</a></li>
+            <li><a href="index.php?page=allUnits">All Units</a></li>
+            <li><a href="index.php?page=getHero">Get Hero Data</a></li>
+            <li><a href="index.php?page=getHeroList">Hero List</a></li>
+          </ul>
+        </nav>
+        <content>
+          <div class="container">
+            <p>
+              This is the dashboard.
+            </p>
+          </div>
+        </content>
+      </main>
+    </div>
+    <!--
     <div v-for="(hero, idx) in heroes" v-bind:key="idx">
       <h1>{{ hero.name }}</h1>
     </div>
+    -->
   </div>
 </template>
-
+<!--
 <script>
   import {db} from './db'
   export default {
@@ -20,7 +47,17 @@
     }
   }
 </script>
+-->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+<!-- DataTables -->
+<style src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></style>
+<!-- Local custom styles -->
+<style src="src/css/style.css"></style>
+<!--
 <style>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -31,3 +68,4 @@
     margin-top: 60px;
   }
 </style>
+-->
