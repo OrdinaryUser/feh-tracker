@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import VueLoaderPlugin from 'vue-loader/lib/plugin'
 
 let config = {
   entry: {
@@ -11,7 +12,7 @@ let config = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
-    modules: ['node_modules'],
+    modules: ['src', 'node_modules'],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
     }
@@ -20,7 +21,8 @@ let config = {
   devServer: {
     hot: true,
     hotOnly: true,
-    inline: true
+    inline: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -37,6 +39,10 @@ let config = {
       {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -58,12 +64,13 @@ let config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html",
-      favicon: "images/favicon.ico",
+      template: "./src/index.html",
+      //favicon: "images/favicon.ico",
     }),
     new webpack.ProvidePlugin({
       _: "lodash",
     }),
+    new VueLoaderPlugin()
   ],
 };
 

@@ -3,7 +3,7 @@
    <div class="flexwrap">
       <header>
         <a class="title" href="">
-          <img src="src/img/feh-logo.png" class="logo" />
+          <img src="./images/feh-logo.png" class="logo" />
           <span>FEH Tracker</span>
         </a>
       </header>
@@ -48,15 +48,9 @@
   }
 </script>
 -->
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- DataTables -->
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-<!-- DataTables -->
-<style src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></style>
 <!-- Local custom styles -->
-<style src="src/css/style.css"></style>
+<style src="css/style.css"></style>
 <!--
 <style>
   #app {

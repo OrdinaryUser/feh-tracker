@@ -9,7 +9,7 @@ Parchment:  #B6946F / rgb(182,148,111)
 *************************************/
 @font-face { 
     font-family: feh;
-    src: url('../fonts/NintendoP\ Skip\ D\ 003.ttf');
+    src: url('./fonts/Nintendo.ttf');
   }
   
   body {
@@ -72,7 +72,7 @@ Parchment:  #B6946F / rgb(182,148,111)
   main {
     width: 100%;
     flex: 1;
-    /*background: url('../img/feh-bg15.png') no-repeat center center fixed; */
+    /*background: url('images/feh-bg15.png') no-repeat center center fixed; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -96,7 +96,7 @@ Parchment:  #B6946F / rgb(182,148,111)
     border-top: 10px groove gray;
     border-left: 10px groove gray;
     border-radius: 9px;
-    background-image: url('../img/bg_mosaic.jpg');
+    background-image: url('~images/bg_mosaic.jpg');
     background-color: #262423;
     color: lightgray;
   }
@@ -118,7 +118,7 @@ Parchment:  #B6946F / rgb(182,148,111)
   
   nav ul li:hover,
   nav ul li.selected {
-    list-style-image: url('../img/selector.png');
+    list-style-image: url('~images/selector.png');
   }
   
   nav ul li a {
