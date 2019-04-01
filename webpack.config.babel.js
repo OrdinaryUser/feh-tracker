@@ -9,6 +9,7 @@ let config = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -64,6 +65,7 @@ let config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      
       template: "./src/index.html",
       //favicon: "images/favicon.ico",
     }),

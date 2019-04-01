@@ -2,15 +2,15 @@
   <div id="app">
    <div class="flexwrap">
       <header>
-        <a class="title" href="">
+        <router-link class="title" to="/">
           <img src="./images/feh-logo.png" class="logo" />
           <span>FEH Tracker</span>
-        </a>
+        </router-link>
       </header>
       <main>
         <nav>
           <ul class="faux-modal">
-            <router-link to="/ViewHero">View Hero</router-link>
+            <router-link to="/heroes">Heroes</router-link>
             <!--
             <li><a href="index.php?page=myUnits">My Units</a></li>
             <li><a href="index.php?page=allUnits">All Units</a></li>

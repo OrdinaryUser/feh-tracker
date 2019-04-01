@@ -15,8 +15,10 @@
       return { hero: { name: 'NOT LOADING' } }
     },
 
-    firestore: {
-      hero: db.collection('heroes')
+    firestore () {
+      return {
+        hero: db.collection('heroes').doc(this.$route.params.id)
+      }
     }
   }
 </script>
