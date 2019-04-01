@@ -237,3 +237,12 @@ Parchment:  #B6946F / rgb(182,148,111)
   table.dataTable tbody td:first-child {
     text-align: center;
   }
+
+  pre {
+    background: #fff;
+    display: block;
+    overflow: auto;
+    white-space: pre;
+    height: 4rem;
+    resize: vertical;
+  }

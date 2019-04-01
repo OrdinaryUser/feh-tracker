@@ -14,14 +14,10 @@ Vue.config.productionTip = false
 import App from './App'
 
 // Routing
-import ViewHero from './pages/ViewHero.vue'
-import ListHeroes from './pages/ListHeroes.vue'
-const routes = [
-  { path: '/ViewHero/:id', component: ViewHero },
-  { path: '/ListHeroes', component: ListHeroes }
-]
+import routes from './routes'
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
@@ -29,5 +25,5 @@ new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
-  router: router
+  router: router,
 })

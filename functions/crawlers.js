@@ -1,6 +1,7 @@
 import Crawler from './crawler';
+import db from './db.js'
 
-function coreCrawler(callback) {
+function coreCrawler(path, callback) {
   return new Crawler({
     maxConnections: 2,
     rateLimit: 5000,
@@ -8,13 +9,15 @@ function coreCrawler(callback) {
       if (err) {
         console.log(err);
       } else {
-        callback($);
+        const data = callback($);
+        db.collection(path).set(data);
       }
       done();
     }
   });
 }
 
-export let heroPageCrawler = new coreCrawler(($) => {
-  
+export let heroPageCrawler = new coreCrawler('heroes', ($) => {
+  return {
+  }
 });
