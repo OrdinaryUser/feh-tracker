@@ -2,7 +2,7 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "test": "babel index.js",
+    "test": "babel-node --presets '@babel/env' index.js",
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
@@ -20,6 +20,8 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.2",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1"
   },

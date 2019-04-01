@@ -1,5 +1,5 @@
 import Crawler from 'crawler';
-import db from '../src/db.js'
+import _ from 'lodash';
 
 const callbackCrawler = (callback) => (
   new Crawler({
@@ -13,17 +13,25 @@ const callbackCrawler = (callback) => (
       }
       done();
     }
-  });
+  })
 );
 
-export function getDataAndDo(url, callback) {
+export function crawlAndDo(url, callback) {
   callbackCrawler(callback).queue(url);
 }
 
-export function updateIdWithScrape(dbPath, id, scrape) {
+export function fetchJsonAndDo(url, callback) {
+  callbackCrawler( ({body}) => callback(JSON.parse(body)))
+    .queue(url);
+}
+
+export function updateIdWithScrape(dbPath, scrape) {
   return callbackCrawler(({$}) => {
     const data = scrape($);
-    console.log(data);
-    //db.collection(dbPath).doc(data.id).set(data);
+    const cleanedData = _.mapValues(data, _.trim);
+    const {id} = cleanedData;
+    console.log(`writing to ${dbPath}/${id}:`);
+    console.log(JSON.stringify(cleanedData, null, 2));
+    //db.collection(dbPath).doc(id).set(cleanedData);
   });
 }
