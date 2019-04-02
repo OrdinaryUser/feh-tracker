@@ -13,10 +13,22 @@ const heroPageCrawler = new updateIdWithScrape('heroes', ($) => {
   const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
   return {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
+    name: $('.page-title .field--name-title').text(),
+    title: $('#hero-details-table .field--name-title+span').text().replace(" - ", ""),
+    tier: $('.tipso-tier').attr('title').replace('Tier ', ''),
+    moveType: $('.field--name-field-movement .field--name-name').text(),
+
     color,
     weaponType,
-    moveType: $('.field--name-field-movement .field--name-name').text(),
-    name: $('.page-title .field--name-title').text(),
+    
+    /*
+		$heroWeaponType = explode(' ', $html->find('.field--name-field-attribute div h2 a div.field--name-name', 0)->innertext)[1];
+		$heroLegendary = get_string_between($html->find('.tipso-legendary noscript img', 0)->src, 'Legendary_Effect_', '.png');
+		$heroDefaultImg = $siteUrl . get_string_between($html->find('#tab-1-img img', 0)->onclick, "imageClicked('", "')");
+		$heroAttackImg = $siteUrl . get_string_between($html->find('#tab-2-img img', 0)->onclick, "imageClicked('", "')");
+		$heroSpecialImg = $siteUrl . get_string_between($html->find('#tab-3-img img', 0)->onclick, "imageClicked('", "')");
+		$heroInjuredImg = $siteUrl . get_string_between($html->find('#tab-4-img img', 0)->onclick, "imageClicked('", "')");
+  */
   };
 });
 
