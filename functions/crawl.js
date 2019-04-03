@@ -15,29 +15,30 @@ const heroPageCrawler = new updateIdWithScrape('heroes', ($) => {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
     name: $('.page-title .field--name-title').text(),
     title: $('#hero-details-table .field--name-title+span').text().replace(" - ", ""),
-    tier: $('.tipso-tier').attr('title').replace('Tier ', ''),
+    tier: ($('.tipso-tier') ? $('.tipso-tier').attr('title').replace('Tier ', '') : ""),
     moveType: $('.field--name-field-movement .field--name-name').text(),
-
     color,
     weaponType,
-    
-    /*
-		$heroWeaponType = explode(' ', $html->find('.field--name-field-attribute div h2 a div.field--name-name', 0)->innertext)[1];
-		$heroLegendary = get_string_between($html->find('.tipso-legendary noscript img', 0)->src, 'Legendary_Effect_', '.png');
-		$heroDefaultImg = $siteUrl . get_string_between($html->find('#tab-1-img img', 0)->onclick, "imageClicked('", "')");
-		$heroAttackImg = $siteUrl . get_string_between($html->find('#tab-2-img img', 0)->onclick, "imageClicked('", "')");
-		$heroSpecialImg = $siteUrl . get_string_between($html->find('#tab-3-img img', 0)->onclick, "imageClicked('", "')");
-		$heroInjuredImg = $siteUrl . get_string_between($html->find('#tab-4-img img', 0)->onclick, "imageClicked('", "')");
-  */
+    heroLegendary: ($('.tipso-legendary').attr('title') ? $('.tipso-legendary').attr('title').match(/^[a-zA-Z]{1,}/gm) : ""), // TODO: Get specific boost stats (should be in the same element)
+    heroDefaultImg: 'https://fireemblem.gamepress.gg' + $('#tab-1-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", ""),
+    heroAttackImg: 'https://fireemblem.gamepress.gg' + $('#tab-2-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", ""),
+    heroSpecialImg: 'https://fireemblem.gamepress.gg' + $('#tab-3-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", ""),
+    heroInjuredImg: 'https://fireemblem.gamepress.gg' + $('#tab-4-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", "")
   };
 });
 
 fetchJsonAndDo('https://gamepress.gg/sites/default/files/aggregatedjson/hero-list-FEH.json', (data) => {
-  const paths = _.map(data, ({title}) => cheerioParse(title).attr('href'));
+  let paths = _.map(data, ({title}) => cheerioParse(title).attr('href'));
+  paths = _.difference(paths, [
+    "https://fireemblem.gamepress.gg/hero/green-bow",
+    "https://fireemblem.gamepress.gg/hero/lance-knight",
+    "https://fireemblem.gamepress.gg/hero/red-flier",
+  ])
   console.log(`Queueing to crawl ${paths.length+1} heroes`);
   _.each(paths, (path) => {
     heroPageCrawler.queue(`https://fireemblem.gamepress.gg${path}`);
   });
+  //heroPageCrawler.queue(`https://fireemblem.gamepress.gg/hero/yune`);
 });
 
 

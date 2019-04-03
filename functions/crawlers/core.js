@@ -4,7 +4,7 @@ import _ from 'lodash';
 const callbackCrawler = (callback) => (
   new Crawler({
     maxConnections: 2,
-    rateLimit: 5000,
+    rateLimit: 500,
     callback: (err, response, done) => {
       if (err) {
         console.log(err);
