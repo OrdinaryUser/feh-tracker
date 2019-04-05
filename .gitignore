@@ -65,5 +65,6 @@ node_modules/
 .env
 
 src/config.js
+functions/config.js
 
 *.swp

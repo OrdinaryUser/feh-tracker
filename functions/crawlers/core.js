@@ -1,5 +1,10 @@
 import Crawler from 'crawler';
 import _ from 'lodash';
+import firebase from 'firebase';
+import 'firebase/functions';
+import config from './config.js'
+
+firebase.initializeApp()
 
 const callbackCrawler = (callback) => (
   new Crawler({
@@ -34,4 +39,12 @@ export function updateIdWithScrape(dbPath, scrape) {
     console.log(JSON.stringify(cleanedData, null, 2));
     //db.collection(dbPath).doc(id).set(cleanedData);
   });
+}
+
+const firebaseFunctionCrawler = new Crawler({
+  maxConnections: 1,
+  rateLimit: 1000,
+})
+
+export function firebaseFunctionTrigger(functionName, data={}) {
 }

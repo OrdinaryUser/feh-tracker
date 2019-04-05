@@ -1,15 +1,12 @@
-import {fetchJsonAndDo, updateIdWithScrape} from './crawlers/core';
+import {updateIdWithScrape, firebaseFunctionTrigger} from './core';
 import _ from 'lodash';
 
-import cheerio from 'cheerio';
-const cheerioParse = (str) => cheerio.load(str)('body > *');
-
 /*
- * heroPageCrawler - a instance of Crawler
+ * getHero - a instance of Crawler
  * writes to db/heroes/:id
  * gets data from queued path
  */
-const heroPageCrawler = new updateIdWithScrape('heroes', ($) => {
+export let updateHero = new updateIdWithScrape('heroes', ($) => {
   const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
   return {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
@@ -27,18 +24,6 @@ const heroPageCrawler = new updateIdWithScrape('heroes', ($) => {
   };
 });
 
-fetchJsonAndDo('https://gamepress.gg/sites/default/files/aggregatedjson/hero-list-FEH.json', (data) => {
-  let paths = _.map(data, ({title}) => cheerioParse(title).attr('href'));
-  paths = _.difference(paths, [
-    "https://fireemblem.gamepress.gg/hero/green-bow",
-    "https://fireemblem.gamepress.gg/hero/lance-knight",
-    "https://fireemblem.gamepress.gg/hero/red-flier",
-  ])
-  console.log(`Queueing to crawl ${paths.length+1} heroes`);
-  _.each(paths, (path) => {
-    heroPageCrawler.queue(`https://fireemblem.gamepress.gg${path}`);
-  });
-  //heroPageCrawler.queue(`https://fireemblem.gamepress.gg/hero/yune`);
-});
+export triggerHeroUpdate = new firebaseFunctionTrigger('')
 
 
