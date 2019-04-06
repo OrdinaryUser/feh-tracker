@@ -1,11 +1,11 @@
 import Crawler from 'crawler';
 import _ from 'lodash';
-import firebase from 'firebase';
-import 'firebase/functions';
-import config from '../config.js'
+const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 import axios from 'axios';
 
-firebase.initializeApp()
+admin.initializeApp(functions.config().firebase);
+const db = admin.firestore();\
 
 const callbackCrawler = (callback) => (
   new Crawler({
@@ -39,6 +39,6 @@ export function scrapeAndUpdate({url, dbCollection, scraper}) {
     const {id} = cleanedData;
     console.log(`writing to ${dbCollection}/${id}:`);
     console.log(JSON.stringify(cleanedData, null, 2));
-    //db.collection(dbPath).doc(id).set(cleanedData);
+    db.collection(dbCollection).doc(id).set(cleanedData);
   });
 }
