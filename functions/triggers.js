@@ -1,4 +1,4 @@
-import {firebaseFunctionTrigger} from './crawlers/core';
+const Crawler = require('crawler');
 
 const firebaseFunctionCrawler = new Crawler({
   maxConnections: 1,
@@ -6,10 +6,10 @@ const firebaseFunctionCrawler = new Crawler({
 })
 
 function firebaseFunctionTrigger(functionName, data={}) {
-  firebaseFunctionCrawler.queue({
-    uri:`https://feh-tracker.cloudfunctions.net/${functionName}`,
-    ...data
-  });
+  firebaseFunctionCrawler.queue(Object.assign(
+    {uri:`https://us-central1-feh-tracker.cloudfunctions.net/${functionName}`},
+    data
+  ));
 }
 
-export const triggerUpdateHero = (path) => firebaseFunctionTrigger('crawlHero', {path});
+exports.triggerUpdateHero = (path) => firebaseFunctionTrigger('crawlHero', {path});

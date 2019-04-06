@@ -1,8 +1,8 @@
 const functions = require('firebase-functions');
-import _ from 'lodash';
+const _ = require('lodash');
 
-import {getHeroPaths, updateHero} from './crawlers';
-import {triggerUpdateHero} from './triggers';
+const {getHeroPaths, updateHero} = require('./crawlers');
+const {triggerUpdateHero} = require('./triggers');
 
 exports.updateAllHeroes = functions.https.onRequest((request, response) => {
   getHeroPaths()

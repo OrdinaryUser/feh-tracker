@@ -1,5 +1,5 @@
-import {scrapeAndUpdate} from './core';
-import _ from 'lodash';
+const {scrapeAndUpdate} = require('./core');
+const _ = require('lodash');
 
 const scraper = ($) => {
   const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
@@ -19,7 +19,7 @@ const scraper = ($) => {
   };
 }
 
-export function updateHero(path) {
+exports.updateHero = function(path) {
   scrapeAndUpdate({
     url: `https://fireemblem.gamepress.gg${path}`,
     dbCollection: 'heroes',

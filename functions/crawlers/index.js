@@ -1,2 +1,2 @@
-export {getHeroPaths} from './getHeroPaths';
-export {updateHero} from './updateHero';
+exports.getHeroPaths = require('./getHeroPaths');
+exports.updateHero   = require('./updateHero');

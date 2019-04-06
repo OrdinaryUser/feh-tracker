@@ -1,10 +1,10 @@
-import cheerio from 'cheerio';
-import _ from 'lodash';
-import { getJsonDataAndDo } from './core';
+const cheerio = require('cheerio');
+const _ = require('lodash');
+const { getJsonDataAndDo } = require('./core');
 
 const cheerioParse = (str) => cheerio.load(str)('body > *');
 
-export function getHeroPaths() {
+exports.getHeroPaths = function() {
   return getJsonDataAndDo('https://gamepress.gg/sites/default/files/aggregatedjson/hero-list-FEH.json')
     .then((data) => {
       let paths = _.map(data, ({title}) => cheerioParse(title).attr('href'));

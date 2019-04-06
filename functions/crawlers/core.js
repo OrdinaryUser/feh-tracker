@@ -1,11 +1,11 @@
-import Crawler from 'crawler';
-import _ from 'lodash';
+const Crawler = require('crawler');
+const _ = require('lodash');
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-import axios from 'axios';
+const axios = require('axios');
 
 admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();\
+const db = admin.firestore();
 
 const callbackCrawler = (callback) => (
   new Crawler({
@@ -22,17 +22,17 @@ const callbackCrawler = (callback) => (
   })
 );
 
-export function crawlAndDo(url, callback) {
+exports.crawlAndDo = function(url, callback) {
   callbackCrawler(callback).queue(url);
 }
 
-export function getJsonDataAndDo(url) {
+exports.getJsonDataAndDo = function(url) {
   return axios.get(url)
     .catch(console.log)
     .then(({data}) => data); // only get .data from the response
 }
 
-export function scrapeAndUpdate({url, dbCollection, scraper}) {
+exports.scrapeAndUpdate = function({url, dbCollection, scraper}) {
   crawlAndDo(url, ({$}) => {
     const data = scraper($);
     const cleanedData = _.mapValues(data, _.trim);
