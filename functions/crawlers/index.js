@@ -1,2 +1,2 @@
-export {getHeroList} from './getHeroList';
-export {getHero} from './getHero';
+export {getHeroPaths} from './getHeroPaths';
+export {updateHero} from './updateHero';

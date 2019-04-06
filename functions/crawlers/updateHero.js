@@ -1,12 +1,7 @@
-import {updateIdWithScrape, firebaseFunctionTrigger} from './core';
+import {scrapeAndUpdate} from './core';
 import _ from 'lodash';
 
-/*
- * getHero - a instance of Crawler
- * writes to db/heroes/:id
- * gets data from queued path
- */
-export let updateHero = new updateIdWithScrape('heroes', ($) => {
+const scraper = ($) => {
   const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
   return {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
@@ -22,8 +17,12 @@ export let updateHero = new updateIdWithScrape('heroes', ($) => {
     heroSpecialImg: 'https://fireemblem.gamepress.gg' + $('#tab-3-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", ""),
     heroInjuredImg: 'https://fireemblem.gamepress.gg' + $('#tab-4-img .modal-img-target').attr('onclick').replace("imageClicked('", "").replace("')", "")
   };
-});
+}
 
-export triggerHeroUpdate = new firebaseFunctionTrigger('')
-
-
+export function updateHero(path) {
+  scrapeAndUpdate({
+    url: `https://fireemblem.gamepress.gg${path}`,
+    dbCollection: 'heroes',
+    scraper
+  });
+};

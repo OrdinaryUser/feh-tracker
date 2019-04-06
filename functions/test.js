@@ -1,11 +1,9 @@
 import _ from 'lodash';
 
-import {getHeroList, heroCrawler} from './crawlers';
+import {getHeroPaths, updateHero} from './crawlers';
 
-const heroPaths = getHeroList();
-
-console.log(heroPaths);
-
-_.each(heroPaths, (path)=>{
-  heroCrawler.queue(`https://fireemblem.gamepress.gg${path}`);
-});
+getHeroPaths()
+  .then((paths)=>{
+    console.log(`Crawling ${paths.length} Heroes...`);
+    _.each(paths, updateHero);
+  });

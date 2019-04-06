@@ -2,7 +2,8 @@ import Crawler from 'crawler';
 import _ from 'lodash';
 import firebase from 'firebase';
 import 'firebase/functions';
-import config from './config.js'
+import config from '../config.js'
+import axios from 'axios';
 
 firebase.initializeApp()
 
@@ -25,26 +26,19 @@ export function crawlAndDo(url, callback) {
   callbackCrawler(callback).queue(url);
 }
 
-export function fetchJsonAndDo(url, callback) {
-  callbackCrawler( ({body}) => callback(JSON.parse(body)))
-    .queue(url);
+export function getJsonDataAndDo(url) {
+  return axios.get(url)
+    .catch(console.log)
+    .then(({data}) => data); // only get .data from the response
 }
 
-export function updateIdWithScrape(dbPath, scrape) {
-  return callbackCrawler(({$}) => {
-    const data = scrape($);
+export function scrapeAndUpdate({url, dbCollection, scraper}) {
+  crawlAndDo(url, ({$}) => {
+    const data = scraper($);
     const cleanedData = _.mapValues(data, _.trim);
     const {id} = cleanedData;
-    console.log(`writing to ${dbPath}/${id}:`);
+    console.log(`writing to ${dbCollection}/${id}:`);
     console.log(JSON.stringify(cleanedData, null, 2));
     //db.collection(dbPath).doc(id).set(cleanedData);
   });
-}
-
-const firebaseFunctionCrawler = new Crawler({
-  maxConnections: 1,
-  rateLimit: 1000,
-})
-
-export function firebaseFunctionTrigger(functionName, data={}) {
 }

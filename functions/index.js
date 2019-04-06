@@ -1,19 +1,19 @@
 const functions = require('firebase-functions');
 import _ from 'lodash';
 
-import {getHeroList} from './crawlers';
+import {getHeroPaths, updateHero} from './crawlers';
+import {triggerUpdateHero} from './triggers';
 
-exports.crawlHeroesList = functions.https.onRequest((request, response) => {
-  response.send("Crawling Heroes List");
-  const heroList = getHeroList();
-  _.each(heroList, (path) => {
-    heroPageCrawler.queue(`https://fireemblem.gamepress.gg${path}`);
-  });
+exports.updateAllHeroes = functions.https.onRequest((request, response) => {
+  getHeroPaths()
+    .then((paths)=>{
+      response.send(`Updating ${paths.length} Heroes... This should take about 5 minutes.`);
+      _.each(paths, triggerUpdateHero);
+    });
 });
 
-exports.crawlHero = functions.https.onRequest((request, response) => {
-  const path = JSON.parse(request.body);
-  console.log(path);
+exports.updateHero = functions.https.onRequest((request, response) => {
+  const {path} = request.params;
   response.send(`Crawling Hero: ${path}`);
-  const hero = scrapeHero(path);
+  updateHero.queue(path);
 });
