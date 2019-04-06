@@ -68,3 +68,4 @@ src/config.js
 functions/config.js
 
 *.swp
+dist
