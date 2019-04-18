@@ -1,8 +1,10 @@
-const {scrapeAndUpdate} = require('./core');
+const scrapeAndUpdate = require('./core').scrapeAndUpdate;
 const _ = require('lodash');
 
 const scraper = ($) => {
-  const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
+  const colorWepTypeArr = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
+  const color = colorWepTypeArr[0];
+  const weaponType = colorWepTypeArr[1]
   return {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
     name: $('.page-title .field--name-title').text(),
@@ -20,9 +22,9 @@ const scraper = ($) => {
 }
 
 exports.updateHero = function(path) {
-  scrapeAndUpdate({
-    url: `https://fireemblem.gamepress.gg${path}`,
-    dbCollection: 'heroes',
+  scrapeAndUpdate(
+    `https://fireemblem.gamepress.gg${path}`,
+    'heroes',
     scraper
-  });
+  );
 };

@@ -29,14 +29,14 @@ exports.crawlAndDo = function(url, callback) {
 exports.getJsonDataAndDo = function(url) {
   return axios.get(url)
     .catch(console.log)
-    .then(({data}) => data); // only get .data from the response
+    .then((response) => response.data); // only get .data from the response
 }
 
-exports.scrapeAndUpdate = function({url, dbCollection, scraper}) {
-  crawlAndDo(url, ({$}) => {
-    const data = scraper($);
+exports.scrapeAndUpdate = function(url, dbCollection, scraper) {
+  crawlAndDo(url, (scrape) => {
+    const data = scraper(scrape.$);
     const cleanedData = _.mapValues(data, _.trim);
-    const {id} = cleanedData;
+    const id = cleanedData.id;
     console.log(`writing to ${dbCollection}/${id}:`);
     console.log(JSON.stringify(cleanedData, null, 2));
     db.collection(dbCollection).doc(id).set(cleanedData);

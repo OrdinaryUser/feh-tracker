@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const _ = require('lodash');
-const { getJsonDataAndDo } = require('./core');
+const getJsonDataAndDo = require('./core').getJsonDataAndDo;
 
 const cheerioParse = (str) => cheerio.load(str)('body > *');
 

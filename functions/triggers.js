@@ -5,10 +5,10 @@ const firebaseFunctionCrawler = new Crawler({
   rateLimit: 1000,
 })
 
-function firebaseFunctionTrigger(functionName, data={}) {
+function firebaseFunctionTrigger(functionName, data) {
   firebaseFunctionCrawler.queue(Object.assign(
     {uri:`https://us-central1-feh-tracker.cloudfunctions.net/${functionName}`},
-    data
+    data || {}
   ));
 }
 
