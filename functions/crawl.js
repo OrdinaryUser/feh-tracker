@@ -13,7 +13,7 @@ const heroPageCrawler = new updateIdWithScrape('heroes', ($) => {
   const [color, weaponType] = _.last($('.field--name-field-attribute > .taxonomy-term').attr('about').split('/')).split('-');
   return {
     id: _.last($('link[rel=canonical]').attr('href').split('/')),
-    name: $('.page-title .field--name-title').text(),
+    name: $('#page-title h1').text(),
     title: $('#hero-details-table .field--name-title+span').text().replace(" - ", ""),
     tier: ($('.tipso-tier') ? $('.tipso-tier').attr('title').replace('Tier ', '') : ""),
     moveType: $('.field--name-field-movement .field--name-name').text(),
