@@ -3,10 +3,13 @@
     <h1 class="page-title">
       All Heroes
     </h1>
-    <table>
+    <table id='hero_list'>
       <thead>
         <tr>
           <th>Name</th>
+          <th>Color</th>
+          <th>Move Type</th>
+          <th>Weapon Type</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +18,15 @@
             <router-link :to="{ name: 'hero', params: { id: hero.id } }">
               {{hero.name}}
             </router-link>
+          </td>
+          <td>
+            {{hero.color}}
+          </td>
+          <td>
+            {{hero.moveType}}
+          </td>
+          <td>
+            {{hero.weaponType}}
           </td>
         </tr>
       </tbody>

@@ -8,9 +8,9 @@ Cream:      #E7DDB3 / rgb(231,221,179)
 Parchment:  #B6946F / rgb(182,148,111)
 *************************************/
 @font-face { 
-    font-family: feh;
-    src: url('./fonts/Nintendo.ttf');
-  }
+  font-family: feh;
+  src: url('./fonts/Nintendo.ttf');
+}
   
   body {
     margin: 0;
@@ -245,4 +245,10 @@ Parchment:  #B6946F / rgb(182,148,111)
     white-space: pre;
     height: 4rem;
     resize: vertical;
+  }
+
+  /* EVERYTHING ABOVE WAS COPIED FROM FEH.ALEXHOLTIS.IN */
+
+  table#hero_list {
+    width: 100%;
   }
