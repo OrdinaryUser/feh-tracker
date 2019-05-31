@@ -22,17 +22,17 @@ const callbackCrawler = (callback) => (
   })
 );
 
-exports.crawlAndDo = function(url, callback) {
+const crawlAndDo = function(url, callback) {
   callbackCrawler(callback).queue(url);
 }
 
-exports.getJsonDataAndDo = function(url) {
+const getJsonDataAndDo = function(url) {
   return axios.get(url)
     .catch(console.log)
     .then((response) => response.data); // only get .data from the response
 }
 
-exports.scrapeAndUpdate = function(url, dbCollection, scraper) {
+const scrapeAndUpdate = function(url, dbCollection, scraper) {
   crawlAndDo(url, (scrape) => {
     const data = scraper(scrape.$);
     const cleanedData = _.mapValues(data, _.trim);
@@ -41,4 +41,10 @@ exports.scrapeAndUpdate = function(url, dbCollection, scraper) {
     console.log(JSON.stringify(cleanedData, null, 2));
     db.collection(dbCollection).doc(id).set(cleanedData);
   });
+}
+
+module.exports = {
+  crawlAndDo: crawlAndDo,
+  getJsonDataAndDo: getJsonDataAndDo,
+  scrapeAndUpdate: scrapeAndUpdate
 }

@@ -4,7 +4,7 @@ const getJsonDataAndDo = require('./core').getJsonDataAndDo;
 
 const cheerioParse = (str) => cheerio.load(str)('body > *');
 
-exports.getHeroPaths = function() {
+module.exports = function() {
   return getJsonDataAndDo('https://gamepress.gg/sites/default/files/aggregatedjson/hero-list-FEH.json')
     .then((data) => {
       let paths = _.map(data, ({title}) => cheerioParse(title).attr('href'));

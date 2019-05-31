@@ -1,4 +1,4 @@
-const scrapeAndUpdate = require('./core').scrapeAndUpdate;
+const core = require('./core');
 const _ = require('lodash');
 
 const scraper = ($) => {
@@ -21,10 +21,12 @@ const scraper = ($) => {
   };
 }
 
-exports.updateHero = function(path) {
-  scrapeAndUpdate(
+const updateHero = (path) => {
+  core.scrapeAndUpdate(
     `https://fireemblem.gamepress.gg${path}`,
     'heroes',
     scraper
-  );
-};
+  )
+}
+
+module.exports = updateHero;
