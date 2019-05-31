@@ -15,7 +15,8 @@
     "firebase-functions": "^2.2.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.2",
-    "vuefire": "^2.0.0-alpha.21"
+    "vuefire": "^2.0.0-alpha.21",
+    "vuetable-2": "^1.7.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -3,18 +3,28 @@
     <h1 class="page-title">
       All Heroes
     </h1>
-    <ul>
-      <li v-for="hero in heroes" v-bind:key="hero.id">
-        <router-link :to="{ name: 'hero', params: { id: hero.id } }">
-          {{hero.name}}
-        </router-link>
-      </li>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="hero in heroes" v-bind:key="hero.id">
+          <td>
+            <router-link :to="{ name: 'hero', params: { id: hero.id } }">
+              {{hero.name}}
+            </router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
   import {db} from '../db'
+
   export default {
     name: 'app',
 
