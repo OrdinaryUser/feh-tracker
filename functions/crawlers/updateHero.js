@@ -23,7 +23,7 @@ const scraper = ($) => {
 
 const updateHero = (path) => {
   core.scrapeAndUpdate(
-    `https://fireemblem.gamepress.gg${path}`,
+    path,
     'heroes',
     scraper
   )

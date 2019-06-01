@@ -1,11 +1,9 @@
 const Crawler = require('crawler');
 const _ = require('lodash');
-const admin = require('firebase-admin');
-const functions = require('firebase-functions');
 const axios = require('axios');
+const db = require('../db.js');
 
-admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();
+
 
 const callbackCrawler = (callback) => (
   new Crawler({
@@ -32,14 +30,31 @@ const getJsonDataAndDo = function(url) {
     .then((response) => response.data); // only get .data from the response
 }
 
-const scrapeAndUpdate = function(url, dbCollection, scraper) {
+function handleError(path, obj) {
+  const errorId = _.kebabCase(path);
+  db.collection(`errors`).doc(errorId).set(obj);
+  console.log(`${path} - ${obj.errorType}`)
+}
+
+const scrapeAndUpdate = function(path, dbCollection, scraper) {
+  const url = `https://fireemblem.gamepress.gg${path}`;
   crawlAndDo(url, (scrape) => {
-    const data = scraper(scrape.$);
-    const cleanedData = _.mapValues(data, _.trim);
-    const id = cleanedData.id;
-    console.log(`writing to ${dbCollection}/${id}:`);
-    console.log(JSON.stringify(cleanedData, null, 2));
-    db.collection(dbCollection).doc(id).set(cleanedData);
+    try {
+      const data = scraper(scrape.$);
+      let cleanedData = _.mapValues(data, _.trim);
+      const id = cleanedData.id;
+      cleanedData.url = url;
+      const doc = db.collection(dbCollection).doc(id);
+      doc.set(cleanedData)
+        .then(function(){
+          console.log(`${path} - updated`)
+        })
+        .catch(function(err) {
+          handleError(path, {url: url, errorMessage: err.toString(), errorType: "dbError"});
+        });
+    } catch(err) {
+      handleError(path, {url: url, errorMessage: err.toString(), errorType: "parseError"});
+    }
   });
 }
 
