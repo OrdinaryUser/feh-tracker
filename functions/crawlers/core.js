@@ -30,14 +30,14 @@ const getJsonDataAndDo = function(url) {
     .then((response) => response.data); // only get .data from the response
 }
 
-function handleError(path, obj) {
-  const errorId = _.kebabCase(path);
+function handleError(errId, obj) {
   db.collection(`errors`).doc(errorId).set(obj);
   console.log(`${path} - ${obj.errorType}`)
 }
 
 const scrapeAndUpdate = function(path, dbCollection, scraper) {
   const url = `https://fireemblem.gamepress.gg${path}`;
+  const errId = _.kebabCase(path);
   crawlAndDo(url, (scrape) => {
     try {
       const data = scraper(scrape.$);
@@ -47,13 +47,15 @@ const scrapeAndUpdate = function(path, dbCollection, scraper) {
       const doc = db.collection(dbCollection).doc(id);
       doc.set(cleanedData)
         .then(function(){
-          console.log(`${path} - updated`)
+          console.log(`${path} - updated`);
+          db.collection('errors').doc(errId).delete();
         })
         .catch(function(err) {
-          handleError(path, {url: url, errorMessage: err.toString(), errorType: "dbError"});
+          handleError(errId, {url: url, errorMessage: err.toString(), errorType: "dbError"});
         });
     } catch(err) {
-      handleError(path, {url: url, errorMessage: err.toString(), errorType: "parseError"});
+      handleError(errId, {url: url, errorMessage: err.toString(), errorType: "parseError"});
+      console.log(err);
     }
   });
 }
